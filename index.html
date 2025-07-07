@@ -1,7 +1,1021 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Ahmed Youssef's personal portfolio. An AI & Machine Learning Engineer specializing in Computer Vision and Natural Language Processing.">
+    <meta name="keywords" content="Ahmed Youssef, AI, Machine Learning, Computer Vision, NLP, Deep Learning, Portfolio, Developer">
+    <meta name="author" content="Ahmed Youssef">
+
+    <!-- Title -->
+    <title>Ahmed Youssef | AI & ML Engineer</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">    
+    <!-- Favicon (Emoji as a quick, modern favicon) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
+
+    <!--====================
+        CSS STYLES
+    ====================-->
+    <style>
+        /*--------------------
+          1. CSS VARIABLES & RESET
+        --------------------*/
+        :root {
+            /* Colors */
+            --dark-navy: #0a192f;
+            --light-navy: #112240;
+            --lightest-navy: #233554;
+            --slate: #8892b0;
+            --light-slate: #a8b2d1;
+            --lightest-slate: #ccd6f6;
+            --accent: #64ffda;
+            --accent-tint: rgba(100, 255, 218, 0.1);
+
+            /* Fonts */
+            --font-primary: 'Poppins', sans-serif;
+            --font-secondary: 'Inter', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+
+            /* Spacing */
+            --header-height: 3.5rem;
+            --section-padding: 100px 0;
+        }
+
+        /* Basic Reset */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--slate) var(--dark-navy);
+        }
+
+        body {
+            background-color: var(--dark-navy);
+            color: var(--slate);
+            font-family: var(--font-secondary);
+            font-size: 16px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-primary);
+            color: var(--lightest-slate);
+            line-height: 1.2;
+            margin: 0 0 10px 0;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--lightest-slate);
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /*--------------------
+          2. UTILITY & REUSABLE CLASSES
+        --------------------*/
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        .section {
+            padding: var(--section-padding);
+        }
+        
+        .section-title {
+            font-size: clamp(26px, 5vw, 32px);
+            font-weight: 700;
+            margin-bottom: 40px;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            position: relative;
+            top: 2px;
+            width: 300px;
+            height: 1px;
+            margin-left: 20px;
+            background-color: var(--lightest-navy);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            color: var(--accent);
+            font-family: var(--font-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            background-color: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-tint);
+            color: var(--accent);
+        }
+        
+        /* For Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /*--------------------
+          3. HEADER / NAVBAR
+        --------------------*/
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 0 25px;
+            height: var(--header-height);
+            z-index: 100;
+            background-color: rgba(10, 25, 47, 0.85);
+            backdrop-filter: blur(10px);
+            transition: top 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .header.scrolled {
+            box-shadow: 0 10px 30px -10px rgba(2, 12, 27, 0.7);
+        }
+
+        .nav {
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .nav__logo {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 24px;
+            color: var(--accent);
+        }
+
+        .nav__list {
+            display: flex;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav__item {
+            margin-left: 30px;
+        }
+
+        .nav__link {
+            font-size: 14px;
+            color: var(--lightest-slate);
+            padding: 10px;
+        }
+        .nav__link:hover {
+            color: var(--accent);
+        }
+
+        /*--------------------
+          4. HERO SECTION
+        --------------------*/
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        
+        .hero__content {
+            max-width: 800px;
+        }
+
+        .hero__greeting {
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .hero__name {
+            font-size: clamp(40px, 8vw, 80px);
+            font-weight: 700;
+        }
+
+        .hero__subtitle {
+            font-size: clamp(20px, 5vw, 32px);
+            font-weight: 600;
+            color: var(--light-slate);
+            margin-top: 5px;
+        }
+
+        /* Typing effect cursor */
+        .typing-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1em;
+            background-color: var(--accent);
+            animation: blink 0.7s infinite;
+            position: relative;
+            top: 0.1em;
+            margin-left: 4px;
+        }
+        
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .hero__buttons {
+            margin-top: 40px;
+            display: flex;
+            gap: 15px;
+        }
+        /*--------------------
+        4.5 HERO BACKGROUND ANIMATION
+        --------------------*/
+        .hero {
+            position: relative; /* This is crucial for positioning the shapes */
+            overflow: hidden;   /* Prevents shapes from spilling out */
+        }
+
+        .hero__background-shapes { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+        .shape {
+            position: absolute; display: block; list-style: none;
+            background: hsla(167, 100%, 70%, 0.15); /* More opaque */
+            animation: float 25s infinite linear;
+            bottom: -200px; /* Start further down */
+        }
+        .shape-1 { left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
+        .shape-2 { left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
+        .shape-3 { left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
+        .shape-4 { left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
+        .shape-5 { left: 65%; width: 120px; height: 120px; animation-delay: 1s; }
+        .shape-6 { left: 90%; width: 40px; height: 40px; animation-delay: 3s; animation-duration: 20s; }
+        .shape-7 { left: 35%; width: 150px; height: 150px; animation-delay: 7s; }
+        .shape-8 { left: 50%; width: 25px; height: 25px; animation-delay: 15s; animation-duration: 45s; }
+        .shape-9 { left: 20%; width: 15px; height: 15px; animation-delay: 2s; animation-duration: 35s; }
+        .shape-10 { left: 85%; width: 100px; height: 100px; animation-delay: 0s; animation-duration: 15s; }
+
+
+        /* Keyframe animation for the floating effect */
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+                border-radius: 0;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+                border-radius: 80%;
+            }
+        }
+        /*--------------------
+          5. ABOUT SECTION
+        --------------------*/
+        .about__content {
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            gap: 50px;
+        }
+
+        .about__text p {
+            margin-bottom: 15px;
+            max-width: 600px;
+        }
+        .about-animation-container {
+            position: relative;
+            width: 100%;
+            height: 300px; /* Give it a fixed height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #particle-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /*--------------------
+          6. SKILLS SECTION
+        --------------------*/
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+            list-style: none;
+        }
+        
+        .skill-tag {
+            background-color: var(--light-navy);
+            color: var(--light-slate);
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-size: 14px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-tag:hover {
+            color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px -5px var(--accent-tint);
+        }
+
+        /*--------------------
+          7. PROJECTS SECTION
+        --------------------*/
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .project-card {
+            background-color: var(--light-navy);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px -15px rgba(2, 12, 27, 0.7), 0 0 10px var(--accent-tint);
+        }
+        
+        .project-card__image-container {
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            position: relative;
+            background-color: var(--lightest-navy);
+        }
+        
+        .project-card__image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* A simple placeholder visual */
+            background: 
+              linear-gradient(to top right,
+                  rgba(255,255,255,0.1) 0%,
+                  rgba(255,255,255,0.1) 49.9%,
+                  #fff 50%,
+                  #fff 50.1%,
+                  rgba(255,255,255,0.1) 50.2%,
+                  rgba(255,255,255,0.1) 100%),
+              linear-gradient(to bottom right,
+                  rgba(255,255,255,0.1) 0%,
+                  rgba(255,255,255,0.1) 49.9%,
+                  #fff 50%,
+                  #fff 50.1%,
+                  rgba(255,255,255,0.1) 50.2%,
+                  rgba(255,255,255,0.1) 100%);
+            background-size: 20px 20px;
+            background-color: var(--lightest-navy);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--slate);
+            font-size: 12px;
+        }
+
+        .project-card__content {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .project-card__title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .project-card__title a {
+            color: var(--lightest-slate);
+        }
+        
+        .project-card__title a:hover {
+            color: var(--accent);
+        }
+
+        .project-card__description {
+            font-size: 15px;
+            flex-grow: 1;
+            margin-bottom: 20px;
+        }
+        
+        .project-card__footer a {
+            margin-right: 15px;
+        }
+        /*--------------------
+        7.5 SPECIAL PROJECT CALLOUT
+        --------------------*/
+        .special-project-callout {
+            margin-top: 80px; /* Add space after the project grid */
+            padding: 30px 40px;
+            background-color: transparent;
+            border: 1px solid var(--lightest-navy);
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .special-project-callout:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 15px -5px var(--accent-tint);
+        }
+
+        .special-project__title {
+            color: var(--accent);
+            font-family: var(--font-secondary);
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .special-project__description {
+            max-width: 700px;
+            margin: 0 auto 25px auto;
+            color: var(--light-slate);
+        }
+        /*--------------------
+          8. CONTACT SECTION
+        --------------------*/
+        .contact {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .contact__title {
+            font-size: clamp(30px, 5vw, 40px);
+        }
+        
+        .contact__description {
+            margin: 20px 0 40px;
+        }
+        
+        .contact__email-link {
+            font-family: var(--font-secondary);
+            font-size: clamp(16px, 4vw, 20px);
+            padding: 15px 30px;
+        }
+
+        .contact__socials {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+        
+        .contact__socials a svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--slate);
+            transition: all 0.3s ease;
+        }
+        
+        .contact__socials a:hover svg {
+            fill: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        /*--------------------
+          9. FOOTER
+        --------------------*/
+        .footer {
+            padding: 25px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--slate);
+            font-family: var(--font-secondary);
+        }
+
+        /*--------------------
+          10. RESPONSIVE MEDIA QUERIES
+        --------------------*/
+        @media (max-width: 768px) {
+            :root {
+                --section-padding: 80px 0;
+            }
+            .nav__list {
+                display: none; /* For simplicity on mobile. A hamburger menu would be the next step. */
+            }
+            
+            .section-title::after {
+                width: 100px;
+            }
+            
+            .about__content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .about-animation-container {
+                grid-row: 1; /* Moves the animation above the text on mobile */
+                height: 250px; /* Slightly smaller height on mobile */
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .header {
+                padding: 0 15px;
+            }
+        }
+    </style>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+
+    <!--====================
+        HEADER / NAVBAR
+    ====================-->
+    <header class="header" id="header">
+        <nav class="nav">
+            <a href="#" class="nav__logo">AY</a>
+            <ul class="nav__list">
+                <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
+                <li class="nav__item"><a href="#skills" class="nav__link">Skills</a></li>
+                <li class="nav__item"><a href="#projects" class="nav__link">Projects</a></li>
+                <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!--====================
+            HERO SECTION
+        ====================-->
+        <section class="hero" id="hero">
+            <div class="hero__background-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+                <div class="shape shape-4"></div>
+                <div class="shape shape-5"></div>
+                <div class="shape shape-6"></div>
+                <div class="shape shape-7"></div>
+                <div class="shape shape-8"></div>
+                <div class="shape shape-9"></div>
+                <div class="shape shape-10"></div>
+            </div>
+            <div class="container hero__content">
+                <p class="hero__greeting fade-in">Hi, my name is</p>
+                <h1 class="hero__name fade-in" style="transition-delay: 100ms;">Ahmed Youssef</h1>
+                <h2 class="hero__subtitle fade-in" style="transition-delay: 200ms;">
+                    <span id="typing-text"></span><span class="typing-cursor"></span>
+                </h2>
+                <div class="hero__buttons fade-in" style="transition-delay: 300ms;">
+                    <a href="https://github.com/BinarySkull" target="_blank" rel="noopener noreferrer" class="btn">View My Projects On GitHub</a>
+                    <a href="https://www.linkedin.com/in/ahmedyoussefdev01/" target="_blank" rel="noopener noreferrer" class="btn">Connect with me on LinkedIn</a>
+                </div>
+            </div>
+        </section>
+
+        <!--====================
+            ABOUT ME SECTION
+        ====================-->
+        <section class="section fade-in" id="about">
+            <div class="container">
+                <h2 class="section-title">About Me</h2>
+                <div class="about__content">
+                    <div class="about__text">
+                        <p>
+                            Hello! I'm Ahmed, a passionate AI and Machine Learning Engineer with a deep-seated curiosity for creating intelligent systems that solve real-world problems and expand the limits of AI. My journey into AI began with a fascination for how data can be used to train AI to do almost anything, leading me to specialize in deep learning, particularly in the realms of Computer Vision and NLP. I thrive on the entire development lifecycle, from conceptualizing models and processing vast datasets to deploying robust, scalable applications on cloud platforms like AWS.
+                        </p>
+                        <p>
+                            My project experience, from building complex MRI segmentation models with hybrid architectures to developing predictive demand systems and recommendation engines, reflects my commitment to hands-on learning and practical application. I am driven by the challenge of pushing the boundaries of what's possible and am always exploring new techniques, like model size reduction and building classifiers from the ground up, to drive innovation and creativity in the field of artificial intelligence.
+                        </p>
+                    </div>
+                    <div class="about-animation-container">
+                        <canvas id="particle-canvas"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!--====================
+            SKILLS SECTION
+        ====================-->
+        <section class="section fade-in" id="skills">
+            <div class="container">
+                <h2 class="section-title">Technical Skills</h2>
+                <ul class="skills-grid">
+                    <!-- This list is inferred from the provided project data -->
+                    <li class="skill-tag fade-in" style="transition-delay: 50ms;">Python</li>
+                    <li class="skill-tag fade-in" style="transition-delay: 100ms;">PyTorch</li>
+                    <li class="skill-tag fade-in" style="transition-delay: 150ms;">TensorFlow</li>
+                    <li class="skill-tag fade-in" style="transition-delay: 200ms;">Scikit-learn</li>
+                    <li class="skill-tag fade-in" style="transition-delay: 250ms;">Pandas</li>
+                    <li class="skill-tag fade-in" style="transition-delay: 300ms;">NumPy</li>
+                    <li class="skill-tag fade-in" style="transition-delay: 350ms;">Matplotlib</li>
+                    <li class="skill-tag fade-in" style="transition-delay: 400ms;">AutoGluon</li>
+                    <li class="skill-tag fade-in" style="transition-delay: 450ms;">AWS</li>
+                    <li class="skill-tag fade-in" style="transition-delay: 500ms;">CNNs</li>
+                    <li class="skill-tag fade-in" style="transition-delay: 550ms;">Computer Vision</li>
+                    <li class="skill-tag fade-in" style="transition-delay: 600ms;">Git</li>
+                    <li class="skill-tag fade-in" style="transition-delay: 650ms;">Docker</li>
+                </ul>
+            </div>
+        </section>
+
+        <!--====================
+            PROJECTS SECTION
+        ====================-->
+        <section class="section fade-in" id="projects">
+            <div class="container">
+                <h2 class="section-title">My Projects</h2>
+                <div class="projects-grid">
+                    <!-- Project 1 -->
+                    <div class="project-card fade-in">
+                        <div class="project-card__image-container">
+                            <img class="project-card__image" src="Images/befunet.png" alt="BEFUnet Project">
+                        </div>
+                        <div class="project-card__content">
+                            <h3 class="project-card__title"><a href="https://github.com/BinarySkull/BEFUnet-MRI-Segmentation" target="_blank" rel="noopener noreferrer">BEFUnet Brain Segmentation</a></h3>
+                            <p class="project-card__description">
+                                Hybrid architectures for MRI segmentation.
+                            </p>
+                            <div class="project-card__footer">
+                                <a href="https://github.com/BinarySkull/BEFUnet-MRI-Segmentation" target="_blank" rel="noopener noreferrer" class="btn">View on GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="project-card fade-in">
+                         <div class="project-card__image-container">
+                            <img class="project-card__image" src="Images/bikeShareDemand.png" alt="Bike Share Demand Project">
+                        </div>
+                        <div class="project-card__content">
+                            <h3 class="project-card__title"><a href="https://github.com/BinarySkull/BikeShare-Demand-Prediction" target="_blank" rel="noopener noreferrer">BikeShare Demand Prediction</a></h3>
+                            <p class="project-card__description">
+                                Predicting demand using AutoGluon and AWS.
+                            </p>
+                            <div class="project-card__footer">
+                                <a href="https://github.com/BinarySkull/BikeShare-Demand-Prediction" target="_blank" rel="noopener noreferrer" class="btn">View on GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 3 -->
+                    <div class="project-card fade-in">
+                         <div class="project-card__image-container">
+                            <img class="project-card__image" src="Images/landmark.png" alt="Landmark CNN Project">
+                        </div>
+                        <div class="project-card__content">
+                            <h3 class="project-card__title"><a href="https://github.com/BinarySkull/Landmark-Image-Classification" target="_blank" rel="noopener noreferrer">Landmark Recognizer</a></h3>
+                            <p class="project-card__description">
+                                CNN from scratch for landmark classification.
+                            </p>
+                            <div class="project-card__footer">
+                                <a href="https://github.com/BinarySkull/Landmark-Image-Classification" target="_blank" rel="noopener noreferrer" class="btn">View on GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 4 -->
+                    <div class="project-card fade-in">
+                         <div class="project-card__image-container">
+                            <img class="project-card__image" src="Images/reductionTeq.png" alt="Model reduction techniques Project">
+                        </div>
+                        <div class="project-card__content">
+                            <h3 class="project-card__title"><a href="https://github.com/BinarySkull/CIFAR-10-Model-Techniques" target="_blank" rel="noopener noreferrer">Model Reduction Techniques</a></h3>
+                            <p class="project-card__description">
+                                Comparing model size reduction techniques.
+                            </p>
+                            <div class="project-card__footer">
+                                <a href="https://github.com/BinarySkull/CIFAR-10-Model-Techniques" target="_blank" rel="noopener noreferrer" class="btn">View on GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 5 -->
+                    <div class="project-card fade-in">
+                         <div class="project-card__image-container">
+                            <img class="project-card__image" src="Images/RecSystem.png" alt="Recommendation System Project">
+                        </div>
+                        <div class="project-card__content">
+                            <h3 class="project-card__title"><a href="https://github.com/BinarySkull/Movie-Recommendation-System" target="_blank" rel="noopener noreferrer">Movie Recommendation System</a></h3>
+                            <p class="project-card__description">
+                                Collaborative filtering for movie recommendations.
+                            </p>
+                            <div class="project-card__footer">
+                                <a href="https://github.com/BinarySkull/Movie-Recommendation-System" target="_blank" rel="noopener noreferrer" class="btn">View on GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 6 -->
+                    <div class="project-card fade-in">
+                         <div class="project-card__image-container">
+                            <img class="project-card__image" src="Images/movie_inv.png" alt="Movies demand Project">
+                        </div>
+                        <div class="project-card__content">
+                            <h3 class="project-card__title"><a href="https://github.com/BinarySkull/Investigating-the-Movies" target="_blank" rel="noopener noreferrer">Investigating the Movies</a></h3>
+                            <p class="project-card__description">
+                                EDA on the TMDB movies dataset.
+                            </p>
+                            <div class="project-card__footer">
+                                <a href="https://github.com/BinarySkull/Investigating-the-Movies" target="_blank" rel="noopener noreferrer" class="btn">View on GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Special Project Callout -->
+                <div class="special-project-callout fade-in">
+                    <h4 class="special-project__title">...and for something completely different.</h4>
+                    <p class="special-project__description">
+                        Sometimes, innovation isn't just about algorithms. It's about combining a love for technology with a love for... kunafa. Here's a look at a prototype dessert machine built with Arduino and a bit of creative engineering.
+                    </p>
+                    <a href="https://drive.google.com/file/d/1o_QAIgfRifu8tADd6RyQTAmyRgiAOrg9/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn">See It In Action</a>
+                </div>
+            </div>
+        </section>
+
+        <!--====================
+            CONTACT SECTION
+        ====================-->
+        <section class="section fade-in" id="contact">
+            <div class="container contact">
+                <h2 class="contact__title">Get In Touch</h2>
+                <p class="contact__description">
+                    I'm currently open to new opportunities and collaborations. Whether you have a question or just want to say hi, my inbox is always open. I'll get back to you as soon as I can!
+                </p>
+                <a href="mailto:ahmed.youssef.ai.dev@gmail.com" class="btn contact__email-link">Say Hello</a>
+                 <div class="contact__socials">
+                    <a href="https://github.com/BinarySkull" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/ahmedyoussefdev01/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!--====================
+        FOOTER
+    ====================-->
+    <footer class="footer">
+        <p>© <span id="current-year"></span> Ahmed Youssef. All Rights Reserved.</p>
+    </footer>
+
+    <!--====================
+        JAVASCRIPT
+    ====================-->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            //--------------------
+            // 1. HEADER SCROLL EFFECT
+            //--------------------
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            //--------------------
+            // 2. TYPING ANIMATION
+            //--------------------
+            const typingTextElement = document.getElementById('typing-text');
+            const phrases = [
+                "AI & Machine Learning Engineer",
+                "Computer Vision and NLP Specialist",
+                "Developer"
+            ];
+            let phraseIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+
+            function type() {
+                const currentPhrase = phrases[phraseIndex];
+                
+                if (isDeleting) {
+                    typingTextElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                    charIndex--;
+                } else {
+                    typingTextElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                    charIndex++;
+                }
+
+                let typeSpeed = isDeleting ? 75 : 150;
+
+                if (!isDeleting && charIndex === currentPhrase.length) {
+                    typeSpeed = 2000; // Pause at end of phrase
+                    isDeleting = true;
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    phraseIndex = (phraseIndex + 1) % phrases.length;
+                    typeSpeed = 500; // Pause before starting new phrase
+                }
+                
+                setTimeout(type, typeSpeed);
+            }
+            
+            type();
+
+            //--------------------
+            // 3. SCROLL REVEAL ANIMATION (INTERSECTION OBSERVER)
+            //--------------------
+            const faders = document.querySelectorAll('.fade-in');
+            
+            const appearOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) {
+                        return;
+                    } else {
+                        entry.target.classList.add('visible');
+                        appearOnScroll.unobserve(entry.target);
+                    }
+                });
+            }, appearOptions);
+
+            faders.forEach(fader => {
+                appearOnScroll.observe(fader);
+            });
+
+            //--------------------
+            // 3.5 INTERACTIVE PARTICLE ANIMATION
+            //--------------------
+            const canvas = document.getElementById('particle-canvas');
+            const ctx = canvas.getContext('2d');
+            let particlesArray;
+
+            // Set canvas dimensions
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight;
+
+            // Mouse position
+            const mouse = {
+                x: null,
+                y: null,
+                radius: (canvas.height / 120) * (canvas.width / 120)
+            };
+
+            window.addEventListener('mousemove', (event) => {
+                const rect = canvas.getBoundingClientRect();
+                mouse.x = event.clientX - rect.left;
+                mouse.y = event.clientY - rect.top;
+            });
+            window.addEventListener('mouseout', () => {
+                mouse.x = null;
+                mouse.y = null;
+            });
+
+            // Particle class
+            class Particle {
+                constructor(x, y, directionX, directionY, size, color) {
+                    this.x = x;
+                    this.y = y;
+                    this.directionX = directionX;
+                    this.directionY = directionY;
+                    this.size = size;
+                    this.color = color;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                    ctx.fillStyle = 'var(--accent)';
+                    ctx.fill();
+                }
+                update() {
+                    if (this.x > canvas.width || this.x < 0) {
+                        this.directionX = -this.directionX;
+                    }
+                    if (this.y > canvas.height || this.y < 0) {
+                        this.directionY = -this.directionY;
+                    }
+                    this.x += this.directionX;
+                    this.y += this.directionY;
+                    this.draw();
+                }
+            }
+
+            // Create particle array
+            function init() {
+                particlesArray = [];
+                let numberOfParticles = ((canvas.height * canvas.width) / 9000) + 10;
+                for (let i = 0; i < numberOfParticles; i++) {
+                    let size = (Math.random() * 2) + 1;
+                    let x = (Math.random() * ((canvas.width - size * 2) - (size * 2)) + size * 2);
+                    let y = (Math.random() * ((canvas.height - size * 2) - (size * 2)) + size * 2);
+                    let directionX = (Math.random() * 0.4) - 0.2;
+                    let directionY = (Math.random() * 0.4) - 0.2;
+                    let color = 'var(--accent)';
+                    particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+                }
+            }
+
+            // Animation loop
+            function animate() {
+                requestAnimationFrame(animate);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                for (let i = 0; i < particlesArray.length; i++) {
+                    particlesArray[i].update();
+                }
+                connect();
+            }
+
+            // Draw lines between particles
+            function connect() {
+                let opacityValue = 1;
+                for (let a = 0; a < particlesArray.length; a++) {
+                    for (let b = a; b < particlesArray.length; b++) {
+                        let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) +
+                                     ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                        
+                        if (distance < (canvas.width / 7) * (canvas.height / 7)) {
+                            opacityValue = 1 - (distance / 20000);
+                            ctx.strokeStyle = `rgba(100, 255, 218, ${opacityValue})`;
+                            ctx.lineWidth = 1;
+                            ctx.beginPath();
+                            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            // Resize event
+            window.addEventListener('resize', () => {
+                canvas.width = canvas.parentElement.clientWidth;
+                canvas.height = canvas.parentElement.clientHeight;
+                mouse.radius = (canvas.height / 120) * (canvas.width / 120);
+                init();
+            });
+
+            init();
+            animate();
+
+
+            //--------------------
+            // 4. DYNAMIC FOOTER YEAR
+            //--------------------
+            const yearSpan = document.getElementById('current-year');
+            yearSpan.textContent = new Date().getFullYear();
+
+        });
+    </script>
 </body>
 </html>
