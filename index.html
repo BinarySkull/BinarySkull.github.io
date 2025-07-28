@@ -484,6 +484,97 @@
             margin: 0 auto 25px auto;
             color: var(--light-slate);
         }
+
+        /*--------------------------------
+          7.6 WORK-IN-PROGRESS CALLOUT
+        --------------------------------*/
+        .work-in-progress-callout {
+            margin-top: 40px; /* Space from the Kunafa project */
+            padding: 40px;
+            background-color: var(--light-navy); /* A slightly more prominent background */
+            border: 1px solid var(--lightest-navy);
+            border-radius: 8px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: hidden; /* For the glow effect */
+        }
+        
+        .work-in-progress-callout::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--accent-tint) 0%, transparent 40%);
+            animation: pulse-glow 8s infinite ease-in-out;
+            z-index: 0;
+        }
+
+        .wip-icon-container, .wip-title, .wip-description, .wip-tech-tags {
+            position: relative; /* Ensure content is above the pseudo-element */
+            z-index: 1;
+        }
+
+        .wip-icon {
+            width: 60px;
+            height: 60px;
+            stroke: var(--accent);
+            margin-bottom: 20px;
+        }
+        
+        .wip-tech-node {
+            fill: var(--accent);
+            opacity: 0;
+            animation: tech-blink 4s infinite;
+        }
+        .wip-node-1 { animation-delay: 0s; }
+        .wip-node-2 { animation-delay: 1s; }
+        .wip-node-3 { animation-delay: 2s; }
+        
+        .wip-title {
+            color: var(--lightest-slate);
+            font-family: var(--font-primary);
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .wip-description {
+            max-width: 650px;
+            color: var(--light-slate);
+            margin-bottom: 25px;
+            font-size: 16px;
+        }
+
+        .wip-tech-tags {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .wip-tech-tag {
+            background-color: var(--lightest-navy);
+            color: var(--accent);
+            font-family: var(--font-mono);
+            padding: 5px 12px;
+            border-radius: 20px; /* Pill shape */
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(0.5); opacity: 0.5; }
+            50% { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes tech-blink {
+            0%, 100% { opacity: 0; }
+            25%, 75% { opacity: 1; }
+        }
+
         /*--------------------
           8. CONTACT SECTION
         --------------------*/
@@ -777,6 +868,32 @@
                         Sometimes, innovation isn't just about algorithms. It's about combining a love for technology with a love for... kunafa. Here's a look at a prototype dessert machine built with Arduino and a bit of creative engineering.
                     </p>
                     <a href="https://drive.google.com/file/d/1o_QAIgfRifu8tADd6RyQTAmyRgiAOrg9/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn">See It In Action</a>
+                </div>
+                <!-- ==================== -->
+                <!-- New Project / Currently working on -->
+                <!-- ==================== -->
+                <div class="work-in-progress-callout fade-in">
+                    <div class="wip-icon-container">
+                        <!-- Animated "currently building" icon -->
+                        <svg class="wip-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                            <!-- Inner "tech" circles -->
+                            <circle class="wip-tech-node wip-node-1" cx="12" cy="12" r="1.5"/>
+                            <circle class="wip-tech-node wip-node-2" cx="8" cy="9.5" r="1.5"/>
+                            <circle class="wip-tech-node wip-node-3" cx="16" cy="9.5" r="1.5"/>
+                        </svg>
+                    </div>
+                    <h4 class="wip-title">What I'm Building Now</h4>
+                    <p class="wip-description">
+                        Currently architecting an exciting new project leveraging Retrieval-Augmented Generation (RAG) and the power of vector databases. This venture into advanced generative AI aims to create a more intelligent, context-aware experience. Stay tuned for updates!
+                    </p>
+                    <div class="wip-tech-tags">
+                        <span class="wip-tech-tag">RAG</span>
+                        <span class="wip-tech-tag">Vector Databases</span>
+                        <span class="wip-tech-tag">Generative AI</span>
+                    </div>
                 </div>
             </div>
         </section>
